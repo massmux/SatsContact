@@ -14,6 +14,7 @@ For cashu tokens redeem, it's suggested eNuts, which has been tested with this i
 - configure the default file accordingly
 - put a valid certificate as specified in default file
 - configure the .env (from .env.example) with details of the mint
+- configure the defaultfile with allowed IP and domain name
 
 ### Disclaimer
 
