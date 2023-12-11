@@ -10,7 +10,7 @@ services:
                 context: .
                 dockerfile: Dockerfile
         volumes:
-                - ${PWD}/bot:/opt/satscontact
+          #- ${PWD}/bot:/opt/satscontact
                 - ${PWD}/settings.ini:/opt/satscontact/settings.ini
                 - ${PWD}/.cashu:/root/.cashu
                 - ${PWD}/.env:/opt/satscontact/.env
@@ -30,7 +30,7 @@ services:
                 context: .
                 dockerfile: Dockerfile.api
         volumes:
-            - ${PWD}/api:/opt/api
+          #- ${PWD}/api:/opt/api
             - ${PWD}/letsencrypt:/etc/letsencrypt
             - ${PWD}/settings.ini:/opt/api/settings.ini
         working_dir: /opt/api

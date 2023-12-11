@@ -8,7 +8,15 @@ redisdb_host = redisdb
 redisdb_port = 6379
 
 [bot]
-api_key = XXXX
+api_key = TLGAPIKEY
 
-[breez]
-api_key = YYYY
+[lnbits]
+wallet_id = WALLETID
+admin_key = WALLETKEY
+lnbits_server = https://yourdomain.com
+lnurlp_webhook = https://apidomain/pathto/webhook
+min_lnurlp = 10
+max_lnurlp = 10000
+lndomain = yourdomain.com
+
+

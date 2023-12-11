@@ -17,4 +17,3 @@ breez_sdk.py
 .cashu
 .env
 letsencrypt
-testapi.py
