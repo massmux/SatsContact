@@ -8,6 +8,8 @@ The generated address will be in this form:
 
 For cashu tokens redeem, it's suggested eNuts, which has been tested with this implementation.
 
+### Disclaimer
+
 Please be informed that:
 
 - this software is beta software
