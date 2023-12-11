@@ -1,0 +1,20 @@
+# created by virtualenv automatically
+secrets.txt
+bin
+lib
+share
+workdir
+__pycache__
+NOTE
+settings.ini
+pyenv.cfg
+redisdata
+workdir
+.idea
+qrdir
+tests.py
+breez_sdk.py
+.cashu
+.env
+letsencrypt
+testapi.py

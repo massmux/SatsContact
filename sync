@@ -1,0 +1,2 @@
+echo "Sync to remote dev folder"
+rsync -av ./ satscontact:scdev/

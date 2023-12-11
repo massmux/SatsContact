@@ -1,0 +1,14 @@
+[general]
+testing = yes
+
+
+[redis]
+redisdb = 1
+redisdb_host = redisdb
+redisdb_port = 6379
+
+[bot]
+api_key = XXXX
+
+[breez]
+api_key = YYYY

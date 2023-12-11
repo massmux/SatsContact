@@ -1,0 +1,53 @@
+version: "3.7"
+
+services:
+    bot:
+        container_name: satscontact
+        hostname: satscontact
+        image: massmux/satscontact
+        restart: on-failure
+        build:
+                context: .
+                dockerfile: Dockerfile
+        volumes:
+                - ${PWD}/bot:/opt/satscontact
+                - ${PWD}/settings.ini:/opt/satscontact/settings.ini
+                - ${PWD}/.cashu:/root/.cashu
+                - ${PWD}/.env:/opt/satscontact/.env
+        working_dir: /opt/satscontact
+        entrypoint: /opt/satscontact/entrypoint.sh
+        environment:
+                - TZ=Europe/Rome
+        links:
+                - redisdb
+
+    api:
+        container_name: api
+        hostname: api
+        image: massmux/satscontactapi
+        restart: on-failure
+        build:
+                context: .
+                dockerfile: Dockerfile.api
+        volumes:
+            - ${PWD}/api:/opt/api
+            - ${PWD}/letsencrypt:/etc/letsencrypt
+            - ${PWD}/settings.ini:/opt/api/settings.ini
+        working_dir: /opt/api
+        environment:
+            - TZ=Europe/Rome
+        ports:
+                - 443:443
+        links:
+                - redisdb
+
+    redisdb:
+        container_name: satscontact-redisdb
+        hostname: redisdb
+        command: redis-server /usr/local/etc/redis/redis.conf
+        restart: on-failure
+        image: redis:5.0.12
+        volumes:
+                - ${PWD}/redisdata:/data
+                - ${PWD}/redisconf:/usr/local/etc/redis
+

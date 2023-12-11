@@ -1,0 +1,11 @@
+**/data
+**/qrdir
+**/redisdata
+**/workdir
+settings.ini
+pyenv.cfg
+redisdata
+.idea
+**/.cashu
+**/.env
+**/letsencrypt

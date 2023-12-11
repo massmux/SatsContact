@@ -1,0 +1,31 @@
+FROM python:3.10.12
+
+RUN apt-get update
+
+COPY ./bot /opt/satscontact
+WORKDIR /opt/satscontact
+
+
+# installing the redis-cli
+RUN     apt-get update && \
+        apt-get -y install redis-tools
+
+
+# installing mariadb client
+#RUN     apt-get -y install mariadb-client
+
+
+# add requirements.txt
+COPY ./requirements.txt /opt/satscontact/requirements.txt
+
+
+# install requirements
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+
+CMD [ "./entrypoint.sh" ]
+
