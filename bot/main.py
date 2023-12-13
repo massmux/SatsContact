@@ -10,7 +10,7 @@ from cashulib import GetCashu
 @bot.command("version")
 def version_command(handler):
     chat = bbot.Chat(bot, handler.chat)
-    chat.send("SatsContact version 0.0.1 build 20231202")
+    chat.send("SatsContact version 0.0.1 build 20231212")
 
 
 
@@ -28,8 +28,9 @@ def help_command(handler):
 @bot.command("start")
 def start_command(handler):
     chat, message, args, btns = bbot.Chat(bot, handler.chat), bbot.Message(bot, handler), bbot.Args(handler).GetArgs(), bbot.Buttons()
-    print(message.sender.username)
-    userdetails = get_obj_redis(message.sender.username)
+    cur_user = message.sender.username.replace('_', '-').lower()
+    print(f"Telegram user:{message.sender.username} lnaddressUser: {cur_user}")
+    userdetails = get_obj_redis(cur_user)
     if userdetails:
         # returning user, nothing to do
         chat.send(f"😍*Returning user*"
@@ -38,28 +39,32 @@ def start_command(handler):
                   f"the LNURL `{userdetails['lnurlp']}`"
                   f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍", syntax="markdown")
     else:
-        # new user: create ln address
         newlnurlp = Lnurlp()
-        lnurlp_creation=newlnurlp.create_lnurlp(message.sender.username)
+        user_to_create = message.sender.username.replace('_','-').lower()
+        lnurlp_creation = newlnurlp.create_lnurlp(user_to_create)
         if lnurlp_creation.get('detail') is not None:
-            chat.send(f"Error "
-                      f"{message.sender.username} already exists as lightning address", syntax="markdown")
+            detail = lnurlp_creation.get('detail').replace('_','-')
+            chat.send(f"⚠️*Error*"
+                      f"\n\nAn exception occurred:"
+                      f"\n\n{detail}", syntax="markdown")
             print(lnurlp_creation)
             return
         # ln address successfully created
         print(f"new user: {lnurlp_creation}")
-        lnaddress,lnurlp = f"{message.sender.username}@{settings['lnbits']['lndomain']}", lnurlp_creation['lnurl']
-        newuser = { 'username':message.sender.username, 'userid': chat.id,
-                    'lnaddress':lnaddress,
-                    'lnurlp' : lnurlp
+        lnaddress,lnurlp = f"{user_to_create}@{settings['lnbits']['lndomain']}", lnurlp_creation['lnurl']
+        newuser = { 'username' : message.sender.username, 'userid': chat.id,
+                    'lnaddress' : lnaddress,
+                    'lnurlp' : lnurlp,
+                    'lnaddress_user' : user_to_create,
                    }
         # save details in redis
-        set_obj_redis(message.sender.username, newuser)
+        set_obj_redis(user_to_create, newuser)
         chat.send(f"❤️*New User*"
                   f"\n\nHello {message.sender.username}, Welcome as new user. You are now ready with the following details: "
                   f"\n\nLightning address: `{lnaddress}`"
-                  f"\nLNURLp: `{lnurlp}`"
-                  f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍", syntax="markdown")
+                  f"\n\nLNURLp: `{lnurlp}`"
+                  f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍"
+                  f"\n\nPlease note that your Ligthning address may differ from your username, so be sure to copy it carefully", syntax="markdown")
 
 
 
