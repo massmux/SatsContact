@@ -3,7 +3,7 @@
 from commons import *
 import schedule, threading
 import time
-from lnurlp import Lnurlp
+from lnurlp import Lnurlp, CorrectUsername
 from cashulib import GetCashu
 
 
@@ -24,11 +24,11 @@ def help_command(handler):
               f"\n/help 👉 This message",syntax="markdown")
 
 
-
 @bot.command("start")
 def start_command(handler):
     chat, message, args, btns = bbot.Chat(bot, handler.chat), bbot.Message(bot, handler), bbot.Args(handler).GetArgs(), bbot.Buttons()
-    cur_user = message.sender.username.replace('_', '-').lower()
+    transform = CorrectUsername(message.sender.username)
+    cur_user = transform.get_transformed()
     print(f"Telegram user:{message.sender.username} lnaddressUser: {cur_user}")
     userdetails = get_obj_redis(cur_user)
     if userdetails:
@@ -40,8 +40,7 @@ def start_command(handler):
                   f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍", syntax="markdown")
     else:
         newlnurlp = Lnurlp()
-        user_to_create = message.sender.username.replace('_','-').lower()
-        lnurlp_creation = newlnurlp.create_lnurlp(user_to_create)
+        lnurlp_creation = newlnurlp.create_lnurlp(cur_user)
         if lnurlp_creation.get('detail') is not None:
             detail = lnurlp_creation.get('detail').replace('_','-')
             chat.send(f"⚠️*Error*"
@@ -51,14 +50,14 @@ def start_command(handler):
             return
         # Lightning Address successfully created
         print(f"new user: {lnurlp_creation}")
-        lnaddress,lnurlp = f"{user_to_create}@{settings['lnbits']['lndomain']}", lnurlp_creation['lnurl']
+        lnaddress,lnurlp = f"{cur_user}@{settings['lnbits']['lndomain']}", lnurlp_creation['lnurl']
         newuser = { 'username' : message.sender.username, 'userid': chat.id,
                     'lnaddress' : lnaddress,
                     'lnurlp' : lnurlp,
-                    'lnaddress_user' : user_to_create,
+                    'lnaddress_user' : cur_user,
                    }
         # save details in redis
-        set_obj_redis(user_to_create, newuser)
+        set_obj_redis(cur_user, newuser)
         chat.send(f"❤️*New User*"
                   f"\n\nHello {message.sender.username}, Welcome as new user. You are now ready with the following details: "
                   f"\n\nLightning address: `{lnaddress}`"

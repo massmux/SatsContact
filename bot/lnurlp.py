@@ -2,10 +2,10 @@
 import requests, qrcode, uuid
 import json
 import configparser
+import re
 
 settings = configparser.ConfigParser()
 settings.read('settings.ini')
-
 
 
 class Lnurlp:
@@ -37,3 +37,12 @@ class Lnurlp:
                      "X-Api-Key": self.admin_key},
         )
         return r.json()
+
+class CorrectUsername:
+    def __init__(self,oString):
+        self.oString=oString
+
+    def get_transformed(self):
+        transformed = re.sub("[^0-9a-z]", "", self.oString.lower())
+        return transformed
+
