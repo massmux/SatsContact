@@ -5,7 +5,7 @@ import os
 
 class GetCashu:
     def __init__(self):
-        self.cashu_command="cashu"
+        self.cashu_command = "cashu"
         self.ecash = ""
 
 

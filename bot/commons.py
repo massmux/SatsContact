@@ -5,8 +5,8 @@ settings = configparser.ConfigParser()
 settings.read('settings.ini')
 
 bot = bbot.BBot(settings['bot']['api_key'])
-bot.about = "about"
-bot.owner = "owner"
+bot.about = "Get Cashu by Lightining Address payment"
+bot.owner = "SatsContact"
 bot.after_help = "help"
 
 """ redis initialization """

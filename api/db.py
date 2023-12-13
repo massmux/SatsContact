@@ -1,5 +1,4 @@
 import configparser
-#import simplejson as json
 import redis
 
 import json
@@ -71,7 +70,6 @@ def hkeys_redis(name):
 
 
 def set_secrets(userid, keyset):
-    # {'phrase': 'diary rage begin xx', 'invite_code': 'AAAA-BBBB' }
     if hset_redis('secrets', userid, json.dumps(keyset)):
         return True
     else:

@@ -45,11 +45,11 @@ def start_command(handler):
         if lnurlp_creation.get('detail') is not None:
             detail = lnurlp_creation.get('detail').replace('_','-')
             chat.send(f"⚠️*Error*"
-                      f"\n\nAn exception occurred:"
+                      f"\n\nAn exception occurred, action aborted:"
                       f"\n\n{detail}", syntax="markdown")
             print(lnurlp_creation)
             return
-        # ln address successfully created
+        # Lightning Address successfully created
         print(f"new user: {lnurlp_creation}")
         lnaddress,lnurlp = f"{user_to_create}@{settings['lnbits']['lndomain']}", lnurlp_creation['lnurl']
         newuser = { 'username' : message.sender.username, 'userid': chat.id,
