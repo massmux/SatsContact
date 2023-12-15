@@ -34,7 +34,7 @@ def start_command(handler):
     if userdetails:
         # returning user, nothing to do
         chat.send(f"😍*Returning user*"
-                  f"\n\nHello {message.sender.username}, you are already setup to receive "
+                  f"\n\nHello Pleb, you are already setup to receive "
                   f"Zaps on the Lightning Address `{userdetails['lnaddress']}` or on "
                   f"the LNURL `{userdetails['lnurlp']}`"
                   f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍", syntax="markdown")
@@ -59,11 +59,11 @@ def start_command(handler):
         # save details in redis
         set_obj_redis(cur_user, newuser)
         chat.send(f"❤️*New User*"
-                  f"\n\nHello {message.sender.username}, Welcome as new user. You are now ready with the following details: "
+                  f"\n\nHello Pleb, Welcome as new user. You are now ready with the following details: "
                   f"\n\nLightning address: `{lnaddress}`"
                   f"\n\nLNURLp: `{lnurlp}`"
                   f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍"
-                  f"\n\nPlease note that your Ligthning address may differ from your username, so be sure to copy it carefully", syntax="markdown")
+                  f"\n\nPlease note that your Ligthtning address may differ from your username, so be sure to copy it carefully", syntax="markdown")
 
 
 
