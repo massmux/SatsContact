@@ -3,6 +3,7 @@ import requests, qrcode, uuid
 import json
 import configparser
 import re
+import random,string
 
 settings = configparser.ConfigParser()
 settings.read('settings.ini')
@@ -43,6 +44,10 @@ class CorrectUsername:
         self.oString=oString
 
     def get_transformed(self):
-        transformed = re.sub("[^0-9a-z]", "", self.oString.lower())
+        transformed = re.sub("[^0-9a-z]", "", self.oString.lower())[:15]
+        if len(transformed)<3:
+            letters = string.ascii_lowercase
+            result_str = ''.join(random.choice(letters) for i in range(10))
+            transformed = result_str
         return transformed
 
