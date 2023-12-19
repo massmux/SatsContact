@@ -82,10 +82,10 @@ def events_processor(bot):
         print(f"Mint result: {minted}")
         bot.chat(user_details['userid']).send(f"🎉*Payment Received*"
                                         f"\n\nAmount: {amount} Sats"
-                                        f"\npayment hash: {current}"
+                                        f"\nPayment hash: {current}"
                                         f"\nLightning address: {user_details['lnaddress']}"
-                                        f"\nToken"
-                                        f"\n\n`{minted['ecash']}`", syntax="markdown")
+                                        f"\neCash minted!", syntax="markdown")
+        bot.chat(user_details['userid']).send(f"`{minted['ecash']}`", syntax="markdown")
         hdel_redis('notifications', current)
 
 

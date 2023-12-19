@@ -1,2 +1,2 @@
 echo "Sync to remote dev folder"
-rsync -av ./ satscontact:scdev/
+rsync -av --exclude-from=/home/massmux/PycharmProjects/satscontact/rsyncexclude ./ satscontact:scdev/

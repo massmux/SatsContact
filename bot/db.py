@@ -10,7 +10,6 @@ settings.read('settings.ini')
 # connect to redis
 r = redis.StrictRedis(host = settings['redis']['redisdb_host'], port = settings['redis']['redisdb_port'], db = settings['redis']['redisdb'])
 
-"""redis objects storage"""
 def set_obj_redis(name, obj):
     try:
         r.set(name, json.dumps(obj))
@@ -68,20 +67,6 @@ def hkeys_redis(name):
         return False
 
 
-def set_secrets(userid, keyset):
-    # {'phrase': 'diary rage begin xx', 'invite_code': 'AAAA-BBBB' }
-    if hset_redis('secrets', userid, json.dumps(keyset)):
-        return True
-    else:
-        return False
-
-
-def get_secrets(userid):
-    a=hget_redis('secrets', userid)
-    if a:
-        return json.loads(a)
-    else:
-        return {}
 
 
 

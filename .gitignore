@@ -1,5 +1,4 @@
 # created by virtualenv automatically
-secrets.txt
 bin
 lib
 share
@@ -18,3 +17,5 @@ breez_sdk.py
 .env
 letsencrypt
 default
+sync
+rsyncexclude
