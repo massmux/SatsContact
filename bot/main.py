@@ -87,6 +87,18 @@ def events_processor(bot):
                                         f"\neCash minted!", syntax="markdown")
         bot.chat(user_details['userid']).send(f"`{minted['ecash']}`", syntax="markdown")
         hdel_redis('notifications', current)
+        # Transfer money from the LNURL payment receiver to the mint
+        try:
+            mint = GetCashu()
+            invoice_to_pay = mint.create_invoice(amount)
+            print(f"Compensation invoice from the mint: {invoice_to_pay}")
+            a = Lnurlp()
+            res=a.pay_invoice(invoice_to_pay['invoice'])
+            print(f"payment result: {res}")
+        except:
+            pass
+
+
 
 
 # events processor

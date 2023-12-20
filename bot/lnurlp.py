@@ -39,6 +39,35 @@ class Lnurlp:
         )
         return r.json()
 
+
+    def pay_invoice(self, invoice):
+        url = f"{self.lnbits_server}/api/v1/payments"
+        payload = {"out": True, "bolt11": invoice}
+        r = requests.post(
+            url,
+            data = json.dumps(payload),
+            headers = {"Content-Type": "application/json",
+                      "X-Api-Key": self.admin_key},
+        )
+        return r.json()
+
+
+    def get_balance(self):
+        # {'id': 'xxxx', 'name': '200000000 (@massmux)', 'balance': 5070350}
+        # {'name': '200000000 (@massmux)', 'balance': 5070350}
+        url = f"{self.lnbits_server}/api/v1/wallet"
+        result = {}
+        try:
+            r = requests.get(
+                url,
+                headers={"Content-Type": "application/json",
+                         "X-Api-Key": self.admin_key},
+            )
+        except:
+            return {}
+        return r.json()
+
+
 class CorrectUsername:
     def __init__(self,oString):
         self.oString=oString
