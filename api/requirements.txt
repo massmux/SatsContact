@@ -17,14 +17,10 @@ redis==4.2.0
 requests==2.27.1
 six==1.16.0
 typing_extensions==4.1.1
-urllib3==1.26.9
 uWSGI==2.0.20
 Werkzeug==2.0.3
 wrapt==1.14.0
 qrcode==7.3.1
-Pillow==9.0.1
 cryptography==36.0.2
 coincurve==17.0.0
 bech32==1.2.0
-bit==0.8.0
-python-bitcoinlib==0.11.0

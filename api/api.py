@@ -4,7 +4,6 @@
 from flask_restful import Api
 from flask_restful import Resource, reqparse
 import requests
-import urllib.parse
 
 from flask import Flask, jsonify, request, redirect
 
