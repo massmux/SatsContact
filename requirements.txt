@@ -25,7 +25,6 @@ Logbook==1.5.3
 multidict==6.0.2
 numpy==1.22.3
 packaging==23.2
-Pillow==9.0.1
 protobuf==3.19.4
 pycparser==2.21
 pyee==8.2.2
@@ -43,11 +42,10 @@ requests==2.31.0
 simplejson==3.17.6
 six==1.16.0
 typing-extensions==4.8.0
-urllib3==1.26.9
 websockets==9.1
 wrapt==1.14.0
 yarl==1.7.2
 pyTelegramBotAPI==4.13.0
 schedule==1.1.0
 svglib==1.5.1
-cashu==0.14.0
+cashu==0.14.1
