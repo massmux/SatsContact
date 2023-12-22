@@ -10,7 +10,7 @@ from cashulib import GetCashu
 @bot.command("version")
 def version_command(handler):
     chat = bbot.Chat(bot, handler.chat)
-    chat.send("SatsContact version 0.0.1 build 20231212")
+    chat.send("SatsContact version 0.0.2 build 20231222")
 
 
 
@@ -37,7 +37,8 @@ def start_command(handler):
                   f"\n\nHello Pleb, you are already setup to receive "
                   f"Zaps on the Lightning Address `{userdetails['lnaddress']}` or on "
                   f"the LNURL `{userdetails['lnurlp']}`"
-                  f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍", syntax="markdown")
+                  f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍"
+                  f"\n\nLimits per payment: min {settings['lnbits']['min_lnurlp']} Sats; Max: {settings['lnbits']['max_lnurlp']} Sats", syntax="markdown")
     else:
         newlnurlp = Lnurlp()
         lnurlp_creation = newlnurlp.create_lnurlp(cur_user)
@@ -62,9 +63,9 @@ def start_command(handler):
                   f"\n\nHello Pleb, Welcome as new user. You are now ready with the following details: "
                   f"\n\nLightning address: `{lnaddress}`"
                   f"\n\nLNURLp: `{lnurlp}`"
-                  f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍"
-                  f"\n\nPlease note that your Ligthtning address may differ from your username, so be sure to copy it carefully", syntax="markdown")
-
+                  f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍."
+                  f" Please note that your Ligthtning address may differ from your username, so be sure to copy it carefully"
+                  f"\n\nLimits per payment: min {settings['lnbits']['min_lnurlp']} Sats; Max: {settings['lnbits']['max_lnurlp']} Sats", syntax="markdown")
 
 
 
@@ -76,6 +77,16 @@ def events_processor(bot):
         amount = payment_to_process['amount']
         print(f"Processing {current} {amount} Sats")
         user_details = get_obj_redis(payment_to_process['username'])
+        # Transfer money from the LNURL payment receiver to the mint
+        try:
+            mint = GetCashu()
+            invoice_to_pay = mint.create_invoice(amount)
+            print(f"Compensation invoice from the mint: {invoice_to_pay}")
+            a = Lnurlp()
+            res = a.pay_invoice(invoice_to_pay['invoice'])
+            print(f"payment result: {res}")
+        except:
+            print(f"Error in compensation invoice payment")
         # minting tokens
         tokenobj = GetCashu()
         minted = tokenobj.get_ecash(amount)
@@ -87,16 +98,7 @@ def events_processor(bot):
                                         f"\neCash minted!", syntax="markdown")
         bot.chat(user_details['userid']).send(f"`{minted['ecash']}`", syntax="markdown")
         hdel_redis('notifications', current)
-        # Transfer money from the LNURL payment receiver to the mint
-        try:
-            mint = GetCashu()
-            invoice_to_pay = mint.create_invoice(amount)
-            print(f"Compensation invoice from the mint: {invoice_to_pay}")
-            a = Lnurlp()
-            res=a.pay_invoice(invoice_to_pay['invoice'])
-            print(f"payment result: {res}")
-        except:
-            pass
+
 
 
 
