@@ -3,7 +3,7 @@ import requests, qrcode, uuid
 import json
 import configparser
 import re
-import random,string
+import random,string,qrcode
 
 settings = configparser.ConfigParser()
 settings.read('settings.ini')
@@ -18,6 +18,7 @@ class Lnurlp:
         self.lnurlp_webhook = settings['lnbits']['lnurlp_webhook']
         self.min_lnurlp = settings['lnbits']['min_lnurlp']
         self.max_lnurlp = settings['lnbits']['max_lnurlp']
+        self.success_text = settings['lnbits']['success_text']
 
 
     def create_lnurlp(self, username):
@@ -30,7 +31,12 @@ class Lnurlp:
         # or
         # {'detail': 'Username already exists. Try a different one.'}
         url     = f"{self.lnbits_server}/lnurlp/api/v1/links"
-        payload = {"description": username, "max": self.max_lnurlp, "min": self.min_lnurlp, "comment_chars": 50, "username": username, "webhook_url": self.lnurlp_webhook + "/" + username }
+        payload = {"description": username, "max": self.max_lnurlp,
+                   "success_text": self.success_text,
+                   "min": self.min_lnurlp,
+                   "comment_chars": 50,
+                   "username": username,
+                   "webhook_url": self.lnurlp_webhook + "/" + username }
         r = requests.post(
             url,
             data = json.dumps(payload),
@@ -38,6 +44,7 @@ class Lnurlp:
                      "X-Api-Key": self.admin_key},
         )
         return r.json()
+
 
 
     def pay_invoice(self, invoice):

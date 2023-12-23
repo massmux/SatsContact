@@ -25,7 +25,12 @@ def lnurlp_webhook(username):
     content = request.get_json(silent=True)
     print(content)
     amount_sats = int(content['amount']) / 1000
-    payment_received = {'payment_hash':content['payment_hash'], 'amount': amount_sats, 'username':username, 'timestamp':time.time()}
+    payment_received = {'payment_hash' : content['payment_hash'],
+                        'amount' : amount_sats,
+                        'username' : username,
+                        'lnurlp' : content['lnurlp'],
+                        'timestamp' : time.time()
+                        }
     set_obj_redis(content['payment_hash'], payment_received)
     hset_redis('notifications', content['payment_hash'], amount_sats )
     print(f"payment: {payment_received}")

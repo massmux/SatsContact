@@ -18,5 +18,5 @@ lnurlp_webhook = https://apidomain/pathto/webhook
 min_lnurlp = 10
 max_lnurlp = 10000
 lndomain = yourdomain.com
-
+success_text = SatsContact
 

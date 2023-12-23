@@ -18,10 +18,10 @@ def version_command(handler):
 def help_command(handler):
     chat = bbot.Chat(bot, handler.chat)
     chat.send(f"🖖SatsContact Bot, Welcome"
-              f"\n\nLightning Zaps to Cashu."
-              f"\n\nCommands summary"
-              f"\n/start 👉 Initialize your user or get details"
-              f"\n/help 👉 This message",syntax="markdown")
+              f"\n\nLightning Zaps/Tips to Cashu."
+              f"\n\n*Commands summary*"
+              f"\n/start: Initialize your user or get details"
+              f"\n/help: This message",syntax="markdown")
 
 
 @bot.command("start")
@@ -56,6 +56,7 @@ def start_command(handler):
                     'lnaddress' : lnaddress,
                     'lnurlp' : lnurlp,
                     'lnaddress_user' : cur_user,
+                    'lnurlp_id': lnurlp_creation['id']
                    }
         # save details in redis
         set_obj_redis(cur_user, newuser)
@@ -63,7 +64,7 @@ def start_command(handler):
                   f"\n\nHello Pleb, Welcome as new user. You are now ready with the following details: "
                   f"\n\nLightning address: `{lnaddress}`"
                   f"\n\nLNURLp: `{lnurlp}`"
-                  f"\n\nEach Zap you receive will be converted in Cashu token and sent here on the Telegram chat 👍."
+                  f"\n\nEach Zap/Tip you receive will be converted in Cashu token and sent here on the Telegram chat 👍."
                   f" Please note that your Ligthtning address may differ from your username, so be sure to copy it carefully"
                   f"\n\nLimits per payment: min {settings['lnbits']['min_lnurlp']} Sats; Max: {settings['lnbits']['max_lnurlp']} Sats", syntax="markdown")
 
@@ -98,8 +99,6 @@ def events_processor(bot):
                                         f"\neCash minted!", syntax="markdown")
         bot.chat(user_details['userid']).send(f"`{minted['ecash']}`", syntax="markdown")
         hdel_redis('notifications', current)
-
-
 
 
 
