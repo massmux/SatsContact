@@ -24,6 +24,18 @@ How to Use the Bot:
 - Certificate: put a valid certificate as specified in default file (for Lightning address' domain name)
 - Mint: configure the .env (from .env.example) with details of the mint (you can connect to any mint you wish)
 
+## Applications for SatsContact
+
+### 1) Receive TPOS Lightning Lnbits payments as eCash
+
+- configure a LNBits instance with the plugins: TPOS, Scrub;
+- create a new TPOS that fits your needs;
+- create a new Scrub connected to local wallet (the same where TPOS is connected);
+- in Scrub configuration set as target LN Address, your address on satscontact;
+
+that's it.
+Now everytime someone pays at your POS, you will get the same amount in Sats as eCash in a Telegram message to your Telegram account.
+
 ## Disclaimer
 
 Please be informed that:
