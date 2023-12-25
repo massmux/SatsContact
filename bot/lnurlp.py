@@ -31,12 +31,13 @@ class Lnurlp:
         # or
         # {'detail': 'Username already exists. Try a different one.'}
         url     = f"{self.lnbits_server}/lnurlp/api/v1/links"
-        payload = {"description": username, "max": self.max_lnurlp,
-                   "success_text": self.success_text,
-                   "min": self.min_lnurlp,
-                   "comment_chars": 50,
-                   "username": username,
-                   "webhook_url": self.lnurlp_webhook + "/" + username }
+        payload = {"description" : username, "max": self.max_lnurlp,
+                   "success_text" : self.success_text,
+                   "min" : self.min_lnurlp,
+                   "comment_chars" : 50,
+                   "username" : username,
+                   "zaps" : True,
+                   "webhook_url" : self.lnurlp_webhook + "/" + username }
         r = requests.post(
             url,
             data = json.dumps(payload),
