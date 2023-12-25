@@ -8,7 +8,7 @@ yourusername@sats.contact
 
 Please note that for being compatible with LNURL standards and also with Telegram ones, the username may differ from your Telegram User. For example if your Telegram user contains uppercase letters they will be converted in lowercase and if unallowed chars are in it, they will be stripped.
 
-For cashu tokens redeem, it's suggested [eNuts](https://www.enuts.cash/), which has been tested with this implementation.
+For cashu tokens redeem, it's suggested [cashu.me](https://cashu.me), which has been tested with this implementation. It works fine also when sending sats Lightning payment using redeemed tokens.
 
 How to Use the Bot:
 
