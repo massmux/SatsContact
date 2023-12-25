@@ -9,7 +9,7 @@ bitstring==3.1.9
 cffi==1.16.0
 charset-normalizer==2.0.12
 coincurve==18.0.0
-cryptography==41.0.4
+##cryptography==41.0.4
 cycler==0.11.0
 Deprecated==1.2.13
 dnspython==2.2.1
@@ -21,7 +21,7 @@ Logbook==1.5.3
 multidict==6.0.2
 numpy==1.22.3
 packaging==23.2
-protobuf==3.19.4
+##protobuf==3.19.4
 pycparser==2.21
 pyee==8.2.2
 pyparsing==3.0.7
