@@ -8,6 +8,7 @@ class GetCashu:
         self.cashu_command = "cashu"
         self.ecash = ""
         self.invoice = ""
+        self.balance = 0
 
 
     def get_ecash(self,amount):
@@ -29,3 +30,9 @@ class GetCashu:
         return self.invoice
 
 
+    def get_balance(self):
+        raw_result = os.popen(f"{self.cashu_command} balance").read()
+        bal = int(raw_result.split(":")[1].strip().split(" ")[0])
+        print(f"balance: {bal}")
+        self.balance = bal
+        return bal
