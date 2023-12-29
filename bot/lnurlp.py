@@ -34,7 +34,7 @@ class Lnurlp:
         payload = {"description" : username, "max": self.max_lnurlp,
                    "success_text" : self.success_text,
                    "min" : self.min_lnurlp,
-                   "comment_chars" : 50,
+                   "comment_chars" : 120,
                    "username" : username,
                    "zaps" : True,
                    "webhook_url" : self.lnurlp_webhook + "/" + username }
