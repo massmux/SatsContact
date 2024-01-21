@@ -8,12 +8,12 @@ yourusername@sats.contact
 
 Please note that for being compatible with LNURL standards and also with Telegram ones, the username may differ from your Telegram User. For example if your Telegram user contains uppercase letters they will be converted in lowercase and if unallowed chars are in it, they will be stripped.
 
-For cashu tokens redeem, it's suggested [cashu.me](https://cashu.me), which has been tested with this implementation. It works fine also when sending sats Lightning payment using redeemed tokens.
+For cashu tokens redeem, it's suggested [cashu.me](https://cashu.me), which has been tested with this implementation. It works fine also when sending sats Lightning payment using redeemed tokens. 
 
 How to Use the Bot:
 
 - open the Bot [SatsContactBot](https://t.me/SatsContactBot) on Telegram
-- run command /start
+- run command /start on the Bot
 - take note of provided LNURL and Lightning address
 - start receiving eCash tokens by receiving Lightning Sats to the provided address
 
@@ -24,7 +24,7 @@ How to Use the Bot:
 - Certificate: put a valid certificate as specified in default file (for Lightning address' domain name)
 - Mint: configure the .env (from .env.example) with details of the mint (you can connect to any mint you wish)
 
-## Applications for SatsContact
+## Applications and usecases for SatsContact
 
 ### 1) Receive TPOS Lightning Lnbits payments as eCash
 
@@ -35,6 +35,13 @@ How to Use the Bot:
 
 that's it.
 Now everytime someone pays at your POS, you will get the same amount in Sats as eCash in a Telegram message to your Telegram account.
+
+### 2) Pay people using eCash
+
+- instead of sending a LN payment directly to your destination Lightning address, connect to @SatsContactBot in Telegram and get your own generated Lightning address
+- send the payment to your generated Lightning address
+- wait for the eCash being generated
+- take the generated eCash and forward it to your destination simply forwarding the message or copying/pasting the eCash string
 
 ## Disclaimer
 
