@@ -18,8 +18,9 @@ services:
         entrypoint: /opt/satscontact/entrypoint.sh
         environment:
                 - TZ=Europe/Rome
-        links:
-                - redisdb
+        networks:
+                - backend
+                - frontend
 
     api:
         container_name: api
@@ -38,8 +39,9 @@ services:
             - TZ=Europe/Rome
         ports:
                 - 443:443
-        links:
-                - redisdb
+        networks:
+                - backend
+                - frontend
 
     redisdb:
         container_name: satscontact-redisdb
@@ -50,4 +52,13 @@ services:
         volumes:
                 - ${PWD}/redisdata:/data
                 - ${PWD}/redisconf:/usr/local/etc/redis
+        networks:
+                - backend
+
+
+networks:
+  backend:
+    internal: true
+  frontend:
+    internal: false
 
