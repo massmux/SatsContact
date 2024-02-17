@@ -9,7 +9,6 @@ bitstring==3.1.9
 cffi==1.16.0
 charset-normalizer==2.0.12
 coincurve==18.0.0
-##cryptography==41.0.4
 cycler==0.11.0
 Deprecated==1.2.13
 dnspython==2.2.1
@@ -43,4 +42,4 @@ yarl==1.7.2
 pyTelegramBotAPI==4.13.0
 schedule==1.1.0
 svglib==1.5.1
-cashu==0.14.1
+cashu==0.15.0

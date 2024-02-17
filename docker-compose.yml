@@ -4,7 +4,7 @@ services:
     bot:
         container_name: satscontact
         hostname: satscontact
-        image: massmux/satscontact
+        image: massmux/satscontact:0.0.2
         restart: on-failure
         build:
                 context: .
